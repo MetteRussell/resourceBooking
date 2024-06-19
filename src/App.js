@@ -1,25 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+import UsersList from './components/UsersList';
+import Login from './components/Login';
+import { useState, useEffect } from 'react';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+
+    return (
+        <div className="container mx-auto ">
+            <div className="flex flex-wrap items-center bg-green-500 gap-x-4 gap-y-10 p-10">
+    <p className="text-xl leading-6 text-black-900">
+      <strong className="font-semibold">NBV Reservationssystem</strong>
+      </p>
+
+        </div>
+            <Login />
+        </div>
+    );
 }
 
 export default App;

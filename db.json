@@ -1,0 +1,70 @@
+{
+  "users": [
+    {
+      "id": "d051",
+      "name": "mette"
+    },
+    {
+      "id": "e5f2",
+      "name": "tim"
+    }
+  ],
+  "materials": [
+    {
+      "id": "8eb9",
+      "userId": "d051",
+      "label": "Presse",
+      "allMaterialId": 1
+    },
+    {
+      "id": "a45c",
+      "userId": "d051",
+      "label": "Slynge 1",
+      "allMaterialId": 2
+    },
+    {
+      "id": "c3d5",
+      "userId": "d051",
+      "label": "Slynge 3",
+      "allMaterialId": 4
+    },
+    {
+      "id": "5dcd",
+      "userId": "e5f2",
+      "label": "Slynge 1",
+      "allMaterialId": 2
+    }
+  ],
+  "reservedDates": [
+    {
+      "id": "2054",
+      "materialId": "8eb9",
+      "reservedDate": "2024-06-20",
+      "allMaterialId": 1
+    },
+    {
+      "id": "1b85",
+      "materialId": "8eb9",
+      "reservedDate": "2024-06-21",
+      "allMaterialId": 1
+    }
+  ],
+  "allMaterials": [
+    {
+      "label": "Presse",
+      "id": "1"
+    },
+    {
+      "label": "Slynge 1",
+      "id": "2"
+    },
+    {
+      "label": "Slynge 2",
+      "id": "3"
+    },
+    {
+      "label": "Slynge 3",
+      "id": "4"
+    }
+  ]
+}
