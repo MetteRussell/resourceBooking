@@ -68,3 +68,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+
+## Postgres
+
+```bash
+docker run -itd -e POSTGRES_USER=my_user -e POSTGRES_PASSWORD=root -p 5432:5432  --name postgresql postgres
+
+PGPASSWORD=root psql -h localhost -p 5432 -U my_user 
+```
