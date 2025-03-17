@@ -29,15 +29,35 @@ const materialsApi = createApi({
                     return tags;
                 },
                 query: (user) => {
-                    console.log("fetch materials api",user);
+                    console.log("fetch materials for user api",user);
                     return {
                         url: '/materials',
                         params: {
-                            userId: user.id,
+                            userId: user.id
                         },
                         method: 'GET',
                     };
                 }
+            }),
+            fetchMaterialById: builder.query({
+               providesTags: (result, error, material) => {
+                    const tags = result.map(material => { 
+                        return { type: 'MaterialById', id: material.id }
+                    });
+      //             tags.push({ type: 'UserMaterial', userId: material.userId });
+                   return tags;
+               },
+                query: (material) => {
+                    console.log("fetch materials for material api", material);
+                    return {
+                        url: '/materials',
+                        params: {
+                            id: material.id
+                        },
+                        method: 'GET',
+                    };
+                }
+                
             }),
             addMaterial: builder.mutation({
                 invalidatesTags: (result, error, user) => {
@@ -72,5 +92,6 @@ const materialsApi = createApi({
     }
 });
 
-export const { useFetchMaterialsQuery, useAddMaterialMutation, useRemoveMaterialMutation } = materialsApi;
+export const { useFetchMaterialsQuery, useFetchMaterialByIdQuery, useAddMaterialMutation, useRemoveMaterialMutation } = materialsApi;
 export { materialsApi };
+

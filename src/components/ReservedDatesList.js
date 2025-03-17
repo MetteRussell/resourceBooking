@@ -7,7 +7,7 @@ import { formatDate } from '../utilities/dateFunctions';
 
 function ReservedDatesList({ material }) {
 
-
+    console.log(material);
     const { data, error, isFetching } = useFetchReservedDatesQuery(material);
     const [addReservedDate, results] = useAddReservedDateMutation();
 
@@ -29,10 +29,12 @@ function ReservedDatesList({ material }) {
         selectedDateObject = {
             materialId: material.id,
             reservedDate: reservedDate,
-            allMaterialId: material.allMaterialId
+            allMaterialId: material.allMaterialId,
+            userId: material.userId
         };
 
-        addReservedDate(selectedDateObject);       
+        addReservedDate(selectedDateObject);    
+          
      };
 
     // filter and sort the date array
@@ -41,8 +43,8 @@ function ReservedDatesList({ material }) {
 
         // filter out dates back in time (so they can't be deleted)
         let now = formatDate(new Date());
-        let filteredData = data.filter(dateObject =>  (dateObject.reservedDate.split("-").join("")) >= now);
-
+        let filteredData = data.filter(dateObject =>  ( dateObject.reservedDate.split("-").join("")) >= now);
+console.log("filteredData",filteredData);
         dataVar = JSON.parse(JSON.stringify(filteredData));
         dataVar.sort((a, b) => {
             const nameA = a.reservedDate; 
@@ -68,7 +70,7 @@ function ReservedDatesList({ material }) {
             return <ReservedDatesListItem key={reservedDate.id} reservedDateObject={reservedDate} />
         });  
     } else {
-        content = <h3 className="text-lg">Ingen datoer er reserveret</h3>;
+        content = <h3 >Ingen datoer er reserveret</h3>;
     };
 
 

@@ -8,14 +8,16 @@ import MaterialDialog from './MaterialDialog';
 
 function MaterialsList({ user, options }) {
 
-    console.log(user);
+    console.log(user, options);
     // for fetching and adding materials for a user
     const { data, error, isFetching } = useFetchMaterialsQuery(user);
+    console.log("after fetchMaterial", data);
     const [addMaterial, results] = useAddMaterialMutation();
     
     // for selected material based on a list of possible materials
     const [open, setOpen] = useState(false);
     const [selectedValue, setSelectedValue] = useState(options[1]);
+    console.log("selectedValue", selectedValue);
 
     // open the material dialog
     const handleClickOpen = () => {

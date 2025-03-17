@@ -29,7 +29,7 @@ endpoints(builder) {
                 return tags;
             },
             query: (material) => {
-                console.log("fetchReservedDates for user/material", material.id);
+                console.log("fetchReservedDates for user/material", material);
                 return {
                     url: '/reservedDates',
                     params: {
@@ -45,11 +45,11 @@ endpoints(builder) {
                     return { type: 'ReservedDate', id: reservedDate.id }
                     
                 });
-                tags.push({ type: 'MaterialReservedDate', id: material.id });
+                tags.push({ type: 'MaterialReservedDate', id: material.allMaterialId });
                 return tags;
             },
             query: (material) => {
-                console.log("fetch reserved dates for specific material", material.allMaterialId);
+                console.log("fetch reserved dates for one material", material);
                 return {
                     url: '/reservedDates',
                     params: {
@@ -64,7 +64,7 @@ endpoints(builder) {
                 return [{type: 'MaterialReservedDate', id: material.id}]
             },
             query: (data) => {
-                const { materialId, reservedDate, allMaterialId } = data;
+                const { materialId, reservedDate, allMaterialId, userId } = data;
                 console.log("add reserved date", data);
                 return {
                     url: '/reservedDates',
@@ -72,7 +72,8 @@ endpoints(builder) {
                     body: {
                         materialId: materialId,
                         reservedDate: reservedDate,
-                        allMaterialId: allMaterialId
+                        allMaterialId: allMaterialId,
+                        userId: userId
                     } 
                 }
             }
@@ -93,5 +94,5 @@ endpoints(builder) {
 }
 });
 
-export const { useFetchReservedDatesQuery, useFetchReservedDatesForOneMaterialQuery, useAddReservedDateMutation, useRemoveReservedDateMutation } = reservedDateApi;
+export const { useFetchReservedDatesQuery, useFetchReservedDatesForOneMaterialQuery, useFetchReservedDatesForSpecificMaterialQuery, useAddReservedDateMutation, useRemoveReservedDateMutation } = reservedDateApi;
 export { reservedDateApi };

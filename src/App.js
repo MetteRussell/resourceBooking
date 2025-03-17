@@ -1,7 +1,7 @@
-import UsersList from './components/UsersList';
-import Login from './components/Login';
-import { useState, useEffect } from 'react';
 
+import Login from './components/Login';
+import Route from './components/Route';
+import AdminList from './components/AdminList'
 
 function App() {
 
@@ -13,7 +13,12 @@ function App() {
       </p>
 
         </div>
-            <Login />
+            <Route path ='/admin'  >
+                <AdminList />
+            </Route>
+            <Route path='/'>
+                <Login />
+            </Route>
         </div>
     );
 }

@@ -39,6 +39,7 @@ const Styles = styled.div`
 
 function DatePickerDialog({ onSave, material } ) {
 
+  console.log(material);
   const dispatch = useDispatch();
 
   const [message, setMessage] = useState(null);
@@ -46,15 +47,10 @@ function DatePickerDialog({ onSave, material } ) {
   const [date, setDate] = useState(null);
 
 
-  const { data, error, isFetching } = useFetchReservedDatesForOneMaterialQuery(material);
-  console.log("all reserved dates", data);
+  const { data, error, isFetching} = useFetchReservedDatesForOneMaterialQuery(material);
+  console.log("all reserved dates for one material", data);
 
-  let allReserved = [];
-  if (data && data.length > 0) {
-    allReserved = data.map ((dateObject) => {
-      return dateObject.reservedDate;
-    });
-  }
+
 
   const closeCalendar = false;
 
@@ -68,9 +64,6 @@ function DatePickerDialog({ onSave, material } ) {
   
   };
 
- 
-
-
   const handleClickOpen = () => {
     console.log("handleClickOpen");
     setDate(null);
@@ -79,11 +72,11 @@ function DatePickerDialog({ onSave, material } ) {
   };
 
   const handleSave = () => {
-    console.log("handleSave");
+    console.log("handleSave", date);
     setOpen(false);
     let allDates = [];
-    let currentDate = new Date(date);
-
+    // let currentDate = new Date(date);
+    // console.log(currentDate);
     onSave(date);
   };
 
@@ -91,6 +84,14 @@ function DatePickerDialog({ onSave, material } ) {
     setOpen(false);
   };
 
+  let allReserved = [];
+  if (data && data.length > 0) {
+    allReserved = data.map ((dateObject) => {
+      console.log(dateObject);
+      return dateObject.reservedDate;
+    });
+  }
+  
   return (
     <div >
       <Button primary rounded onClick={handleClickOpen}>

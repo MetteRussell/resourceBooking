@@ -21,12 +21,18 @@ const userApi = createApi({
     endpoints(builder) {
         return {
             getUser: builder.query({
+                // providesTags: (result, error, user) => {
+                //     const tags = result.map(user => { 
+                //         return { type: 'User', id: user.id }
+                //     });
+                //     return tags;
+                // },
                 query: (user) => {
-                    console.log("getuser api");
+                    console.log("getuser api", user);
                     return {
                         url: '/users',
                         params: {
-                            user: user.name
+                            id: user.id
                         },
                         method: 'GET',
                     };
