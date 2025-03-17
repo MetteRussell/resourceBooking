@@ -116,17 +116,16 @@ function LoginPage( ) {
     };
 
 	return ( <div>
-          
             <form onSubmit={handleSubmit}>
             <div className="flex flex-row justify-between items-center m-3" >
             <h1 className="m2 text-xl"> Indtast email-adresse</h1>
-				<div className="field-group">
+				<div className="field-group w-3/5">
 					<div className="field">
-						<input type="search" id="default-search"  onChange={handleNameChange} className="input" placeholder="Enter email..." required />
+						<input type="search" id="default-search"  onChange={handleNameChange} className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500" placeholder="Indtast email..." required />
 					</div>
 				</div>
 				 <div className="field">
-					<Button className="button is-link" primary="true">Submit</Button>
+					<Button primary rounded className="button is-link" >Submit</Button>
 				</div>
 
             

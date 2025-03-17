@@ -1,11 +1,10 @@
 import Button from './Button';
-import { GoTrashcan, goTrashcan } from 'react-icons/go';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useRemoveMaterialMutation } from '../store';
 import ExpandablePanel from './ExpandablePanel';
 import ReservedDatesList from './ReservedDatesList';
 
 function MaterialsListItem({ material }) {
-    console.log(material);
     const [removeMaterial, results] = useRemoveMaterialMutation();
 
     const handleRemoveMaterial = () => {
@@ -13,7 +12,7 @@ function MaterialsListItem({ material }) {
     }
 
     const header = <>
-        <Button className="mr-2" loading={results.isLoading} onClick={handleRemoveMaterial}><GoTrashcan /></Button>
+        <Button className="mr-2" loading={results.isLoading} onClick={handleRemoveMaterial}><DeleteIcon /></Button>
         {material.label}
         </>;
 

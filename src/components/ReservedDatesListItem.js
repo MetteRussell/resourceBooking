@@ -1,5 +1,5 @@
 import Button from './Button';
-import { GoTrashcan } from 'react-icons/go';
+import DeleteIcon from '@mui/icons-material/Delete';
 import { useRemoveReservedDateMutation } from '../store';
 
 function ReservedDatesListItem({ reservedDateObject }) {
@@ -10,7 +10,7 @@ function ReservedDatesListItem({ reservedDateObject }) {
     };
 
     const header = <>
-        <Button className="mr-2" loading={results.isLoading} onClick={handleRemoveReservedDate}><GoTrashcan /></Button>
+        <Button className="mr-2" loading={results.isLoading} onClick={handleRemoveReservedDate}><DeleteIcon /></Button>
         {reservedDateObject.reservedDate}
         </>;
 

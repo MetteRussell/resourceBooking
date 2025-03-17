@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { useDispatch, useSelector  } from 'react-redux';
 import { useFetchReservedDatesForOneMaterialQuery } from '../store';
-
-//import Button from '@mui/material/Button';
+import { formatDate } from '../utilities/dateFunctions';
 import Button from './Button';
 
 import DialogTitle from '@mui/material/DialogTitle';
@@ -26,17 +25,26 @@ const Styles = styled.div`
  .react-datepicker__close-icon::after {
    background-color: red;
  }
+ .react-datepicker {
+  background-color: white;
+ }
+ .react-datepicker__calendar-icon {
+  fill: black;
+ }
+ .react-datepicker__day--disabled {
+   color: red;
+   background-color: rgba(33, 107, 165, 0.5);
+ }
 `;
 
 function DatePickerDialog({ onSave, material } ) {
 
   const dispatch = useDispatch();
 
+  const [message, setMessage] = useState(null);
   const [open, setOpen] = useState(false);
+  const [date, setDate] = useState(null);
 
-  const [date, setDate] = useState(new Date());
-  const [startDate, setStartDate] = useState(null);
-  const [endDate, setEndDate] = useState(null);
 
   const { data, error, isFetching } = useFetchReservedDatesForOneMaterialQuery(material);
   console.log("all reserved dates", data);
@@ -50,89 +58,80 @@ function DatePickerDialog({ onSave, material } ) {
 
   const closeCalendar = false;
 
-  const handleChange = (range) => {
-    console.log("handleChange", range);
-      const [startDate, endDate] = range;
-      setStartDate(startDate);
-      setEndDate(endDate);    
+  const handleChange = (date) => {
+    
+    setMessage(null);
+    if (formatDate(date) < formatDate(new Date())) {
+      setMessage("Dato er invalid");
+    }
+    setDate(date);
+  
   };
 
-  // const handleListItemClick = (value) => {
-  //   console.log("handleListItemClick");
-  //   onSave(value);
-  // };
+ 
 
 
   const handleClickOpen = () => {
     console.log("handleClickOpen");
-    //setStartDate('');
+    setDate(null);
     setOpen(true);
+    setMessage();
   };
 
   const handleSave = () => {
     console.log("handleSave");
     setOpen(false);
     let allDates = [];
-    let currentDate = new Date(startDate);
-    const newEndDate = new Date(endDate);
-    console.log(currentDate, newEndDate);
-    while (currentDate <= newEndDate) {
-    
+    let currentDate = new Date(date);
 
-    allDates.push(currentDate.toLocaleDateString());
-      currentDate.setDate(currentDate.getDate() + 1);  
-    }
-    
-    onSave(allDates);
+    onSave(date);
   };
 
   const handleClose = () => {
-    console.log("handleClose");
-    
     setOpen(false);
   };
 
-
   return (
     <div >
-      <Button variant="outlined" onClick={handleClickOpen}>
-          Reserver dato(er)  
+      <Button primary rounded onClick={handleClickOpen}>
+          Reserver dato
       </Button>
-      <Dialog 
+      <Dialog
         open={open}
         onClose={handleClose}
        
       >
-        <DialogTitle>        Vælg dato(er)                    </DialogTitle>
-        
-        <DialogContent style={{height:'400px',width:'400px'}}>
+        <DialogTitle>Vælg dato</DialogTitle>
+        <h3 className="pl-7 text-sm">{message}</h3>
+        <DialogContent style={{height:'400px'}}>
          
-          <div className="panel-block is-active overflow-visible bg-tahiti-dark">
+          <div className="mx-auto">
             <Styles>
-                <DatePicker className="react-datepicker-wrapper border-blue-500 bg-blue-500 text-white"
+                <DatePicker className="react-datepicker-wrapper border-blue-500 bg-blue-300 placeholder-white"
                   style={{width: 200}}
                   
                   showIcon
-                  selected={startDate}
+                  selected={date}
                   onChange={handleChange}
-                  startDate={startDate}
-                  endDate={endDate}
-                  selectsRange
+ //                 startDate={startDate}
+//                  endDate={endDate}
+ //                 selectsRange
                   excludeDates={allReserved}
          //         highlightedDates={myReservedDates}
                   shouldCloseOnSelect={closeCalendar}
-                  placeholderText={'    indtast datoer    '}
+                  placeholderText={'    indtast dato    '}
                   dateFormat={"yyyy-MM-dd"}
                   isClearable
 
                 />
             </Styles>
           </div>
+          
         </DialogContent>
     
         <DialogActions>
-          <Button onClick={handleClose} >Fortryd</Button>
-          <Button onClick={handleSave} primary={true} type="submit">Gem</Button>
+          <Button onClick={handleClose} secondary rounded>Fortryd</Button>
+          <Button loading={message} onClick={handleSave} primary rounded type="submit">Gem</Button>
         </DialogActions>
       </Dialog>
       </div>

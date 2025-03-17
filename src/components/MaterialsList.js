@@ -41,7 +41,7 @@ function MaterialsList({ user, options }) {
     if (isFetching) {
         content =<Skeleton className="h-10 w-full" times={3} />
     } else if (error) {
-        content = <div> Error loading material.</div> 
+        content = <div> Fejl ved læsning af udstyr.</div> 
     } else {
         content = data.map(material => {
             return <MaterialsListItem key={material.id} material={material} />
@@ -51,10 +51,10 @@ function MaterialsList({ user, options }) {
     return ( <div>
         <div className="m-2 flex flex-row items-center justify-between" >
 
-            <h3 className="text-lg font-bold">Materials for {user.name} </h3>
+            <h3 className="text-lg font-bold">Udstyr for {user.name} </h3>
            
-            <Button variant="outlined" onClick={handleClickOpen}>
-                Vælg materiale
+            <Button primary rounded  onClick={handleClickOpen}>
+                Vælg udstyr
             </Button>
             <MaterialDialog onClose={handleClose} 
                 selectedValue={selectedValue} 

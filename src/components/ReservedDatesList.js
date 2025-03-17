@@ -3,10 +3,10 @@ import { useFetchReservedDatesQuery, useAddReservedDateMutation } from '../store
 import ReservedDatesListItem from './ReservedDatesListItem';
 import DatepickerDialog from './DatepickerDialog';
 import Skeleton from './Skeleton';
+import { formatDate } from '../utilities/dateFunctions';
 
 function ReservedDatesList({ material }) {
 
-    useFetchReservedDatesQuery(material);
 
     const { data, error, isFetching } = useFetchReservedDatesQuery(material);
     const [addReservedDate, results] = useAddReservedDateMutation();
@@ -20,32 +20,30 @@ function ReservedDatesList({ material }) {
     };
         
     // saving the reserved dates
-    const handleSave = (selectedObjects) => {
-        console.log("handleSave", selectedObjects);
+    const handleSave = (selectedObject) => {
+        console.log("handleSave", selectedObject);
         setOpen(false);
 
         let selectedDateObject = {};
-        selectedObjects.map((selectedDate) => {
-            let reservedDate = new Date(selectedDate).toLocaleDateString("fr-CA", {year:"numeric", month: "2-digit", day:"2-digit"});
-            selectedDateObject = {
-                materialId: material.id,
-                reservedDate: reservedDate,
-                allMaterialId: material.allMaterialId
-            };
+        let reservedDate = new Date(selectedObject).toLocaleDateString("fr-CA", {year:"numeric", month: "2-digit", day:"2-digit"});
+        selectedDateObject = {
+            materialId: material.id,
+            reservedDate: reservedDate,
+            allMaterialId: material.allMaterialId
+        };
 
-            // if allDates already contain the date, dont add it again
-            let totalReservedDates = data.map(a => a.reservedDate);
-            if (!totalReservedDates.includes(reservedDate)) {
-                addReservedDate(selectedDateObject);
-            };
-        });        
-    };
+        addReservedDate(selectedDateObject);       
+     };
 
-    // sort the date array
-        console.log("sorting the array");
+    // filter and sort the date array
     let dataVar = [];
     if (data && data.length > 0) {
-        dataVar = JSON.parse(JSON.stringify(data));
+
+        // filter out dates back in time (so they can't be deleted)
+        let now = formatDate(new Date());
+        let filteredData = data.filter(dateObject =>  (dateObject.reservedDate.split("-").join("")) >= now);
+
+        dataVar = JSON.parse(JSON.stringify(filteredData));
         dataVar.sort((a, b) => {
             const nameA = a.reservedDate; 
             const nameB = b.reservedDate; 
@@ -70,8 +68,9 @@ function ReservedDatesList({ material }) {
             return <ReservedDatesListItem key={reservedDate.id} reservedDateObject={reservedDate} />
         });  
     } else {
-        content = "Ingen datoer er reserveret";
+        content = <h3 className="text-lg">Ingen datoer er reserveret</h3>;
     };
+
 
     return ( 
         <div>
