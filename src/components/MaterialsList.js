@@ -46,7 +46,7 @@ function MaterialsList({ user, options }) {
         content = <div> Fejl ved læsning af udstyr.</div> 
     } else {
         content = data.map(material => {
-            return <MaterialsListItem key={material.id} material={material} />
+            return <MaterialsListItem key={material.id} material={material} options={options}/>
         });
     }
 

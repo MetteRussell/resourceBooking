@@ -4,169 +4,49 @@
       "id": "41d2",
       "name": "mette_russell@hotmail.com",
       "isAdmin": "yes"
-    },
-    {
-      "id": "4101",
-      "name": "tim_russell@gmail.com",
-      "isAdmin": "no"
-    },
-    {
-      "id": "8523",
-      "name": "frederik.husted@gmail.com"
-    },
-    {
-      "id": "7d29",
-      "name": "mogens@hotmail.com"
-    },
-    {
-      "id": "fea0",
-      "name": "lene_navntoft@hotmail.com"
-    },
-    {
-      "id": "cb18",
-      "name": "lene_navntoft@hotmail.com"
-    },
-    {
-      "id": "580e",
-      "name": "lisneth@gmail.com"
-    },
-    {
-      "id": "a94a",
-      "name": "leifjdkhf@gmail.com"
-    },
-    {
-      "id": "0186",
-      "name": "lisbeth_navntoft@gmail.com"
-    },
-    {
-      "id": "8a7c",
-      "name": "lisbeth@gmail.com"
-    },
-    {
-      "id": "727e",
-      "name": "lone@gmail.com",
-      "isAdmin": "no"
-    },
-    {
-      "id": "9e8d",
-      "name": "newme@gmail.com",
-      "isAdmin": "no"
-    },
-    {
-      "id": "a70a",
-      "name": "frederik.husted@hotmail.com",
-      "isAdmin": "no"
     }
   ],
   "materials": [
     {
-      "id": "f999",
+      "id": "1e71",
       "userId": "41d2",
       "label": "Presse",
       "allMaterialId": "1"
     },
     {
-      "id": "ed6c",
+      "id": "2008",
       "userId": "41d2",
       "label": "Slynge 1",
       "allMaterialId": "2"
     },
     {
-      "id": "908a",
-      "userId": "4101",
-      "label": "Slynge 1",
-      "allMaterialId": "2"
-    },
-    {
-      "id": "7478",
-      "userId": "fea0",
-      "label": "Presse",
-      "allMaterialId": "1"
-    },
-    {
-      "id": "82b5",
-      "userId": "727e",
-      "label": "Presse",
-      "allMaterialId": "1"
-    },
-    {
-      "id": "55f6",
-      "userId": "a70a",
+      "id": "feab",
+      "userId": "41d2",
       "label": "Slynge 3",
       "allMaterialId": "4"
     }
   ],
-  "reservedDates": [
-    {
-      "id": "b1f7",
-      "materialId": "f999",
-      "reservedDate": "2025-03-16",
-      "allMaterialId": "1",
-      "userId": "41d2"
-    },
-    {
-      "id": "0432",
-      "materialId": "f999",
-      "reservedDate": "2025-03-17",
-      "allMaterialId": "1",
-      "userId": "41d2"
-    },
-    {
-      "id": "aa4a",
-      "materialId": "ed6c",
-      "reservedDate": "2025-03-16",
-      "allMaterialId": "2",
-      "userId": "41d2"
-    },
-    {
-      "id": "5343",
-      "materialId": "908a",
-      "reservedDate": "2025-03-17",
-      "allMaterialId": "2",
-      "userId": "4101"
-    },
-    {
-      "id": "6cb2",
-      "materialId": "908a",
-      "reservedDate": "2025-03-18",
-      "allMaterialId": "2",
-      "userId": "4101"
-    },
-    {
-      "id": "7e81",
-      "materialId": "f999",
-      "reservedDate": "2025-03-18",
-      "allMaterialId": "1",
-      "userId": "41d2"
-    },
-    {
-      "id": "cdcb",
-      "materialId": "ed6c",
-      "reservedDate": "2025-03-23",
-      "allMaterialId": "2",
-      "userId": "41d2"
-    }
-  ],
+  "reservedDates": [],
   "allMaterials": [
     {
       "label": "Presse",
       "id": "1",
-      "url": "https://"
+      "url": "presse.jpg"
     },
     {
       "label": "Slynge 1",
       "id": "2",
-      "url": "https://"
+      "url": "slynge-6sold.jpg"
     },
     {
       "label": "Slynge 2",
       "id": "3",
-      "url": "https://"
+      "url": "slynge-2sold.jpg"
     },
     {
       "label": "Slynge 3",
       "id": "4",
-      "url": "https://"
+      "url": "slynge-2sold-med-ben.jpg"
     }
   ]
 }

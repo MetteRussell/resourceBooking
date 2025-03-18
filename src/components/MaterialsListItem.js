@@ -10,12 +10,13 @@ import ImageItem from './ImageItem';
 import Link from './Link';
 //import { Link } from 'react-router-dom'
 
-import myImage from '../IMG_0828.jpg';
+//import myImage from '../IMG_4532.jpg';
 
-function MaterialsListItem({ material }) {
+function MaterialsListItem({ material, options}) {
     const [removeMaterial, results] = useRemoveMaterialMutation();
     const { data, error, isFetching } = useFetchReservedDatesQuery(material);
     const [errorMessage, setErrorMessage] = useState(null);
+
 
     const handleRemoveMaterial = () => {
         console.log("remove material", material);
@@ -37,25 +38,26 @@ function MaterialsListItem({ material }) {
         }
     }
 
+    let allMaterial = options[material.allMaterialId-1];
+    let url = allMaterial.url;
+ 
     const header = <>
         <Button className="mr-2" loading={results.isLoading} onClick={handleRemoveMaterial}>
             <DeleteIcon />
         </Button>
-        
-      <br />
-      <div>
-      <a href = {myImage} target = "_blank" >{material.label}</a>      
-      </div>
-        
-        </>;
-// lav et link til foto fra material.label
+        <br />
+        <div>
+          <a href = {require("../"+url)} target = "_blank" >{material.label}</a>     
+        </div>
+    </>;
+
     return ( 
         <div>
         <div className="text-red-600/100" > {errorMessage}</div> 
             <ExpandablePanel key={material.id} header={header}>
                 <ReservedDatesList material={material}/>
             </ExpandablePanel>
-            </div>
+        </div>
     );
 
 }
