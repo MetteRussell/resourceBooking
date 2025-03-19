@@ -4,29 +4,86 @@
       "id": "41d2",
       "name": "mette_russell@hotmail.com",
       "isAdmin": "yes"
+    },
+    {
+      "id": "50e8",
+      "name": "frederik.husted@gmail.com"
+    },
+    {
+      "id": "a33d",
+      "name": "lene@gmail.com"
     }
   ],
   "materials": [
     {
-      "id": "1e71",
+      "id": "42e1",
       "userId": "41d2",
       "label": "Presse",
       "allMaterialId": "1"
     },
     {
-      "id": "2008",
-      "userId": "41d2",
+      "id": "bf53",
+      "userId": "50e8",
       "label": "Slynge 1",
       "allMaterialId": "2"
     },
     {
-      "id": "feab",
+      "id": "7d13",
       "userId": "41d2",
-      "label": "Slynge 3",
-      "allMaterialId": "4"
+      "label": "Slynge 2",
+      "allMaterialId": "3"
+    },
+    {
+      "id": "afd4",
+      "userId": "a33d",
+      "label": "Slynge 2",
+      "allMaterialId": "3"
     }
   ],
-  "reservedDates": [],
+  "reservedDates": [
+    {
+      "id": "bc74",
+      "materialId": "42e1",
+      "reservedDate": "2025-03-18",
+      "allMaterialId": "1",
+      "userId": "41d2"
+    },
+    {
+      "id": "cc6e",
+      "materialId": "42e1",
+      "reservedDate": "2025-03-19",
+      "allMaterialId": "1",
+      "userId": "41d2"
+    },
+    {
+      "id": "5535",
+      "materialId": "bf53",
+      "reservedDate": "2025-03-18",
+      "allMaterialId": "2",
+      "userId": "50e8"
+    },
+    {
+      "id": "dfbe",
+      "materialId": "7d13",
+      "reservedDate": "2025-03-20",
+      "allMaterialId": "3",
+      "userId": "41d2"
+    },
+    {
+      "id": "1fa5",
+      "materialId": "7d13",
+      "reservedDate": "2025-03-19",
+      "allMaterialId": "3",
+      "userId": "41d2"
+    },
+    {
+      "id": "ba2f",
+      "materialId": "afd4",
+      "reservedDate": "2025-03-21",
+      "allMaterialId": "3",
+      "userId": "a33d"
+    }
+  ],
   "allMaterials": [
     {
       "label": "Presse",

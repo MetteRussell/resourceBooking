@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUsers, addUser, userGetUserQuery} from '../store';
+import { useFetchUsersQuery, useAddUserMutation, userGetUserQuery} from '../store';
 
 import { useThunk } from '../hooks/useThunk';
 import axios from 'axios';
@@ -23,16 +23,21 @@ function LoginPage( ) {
 		fetchMaterials();
 	}, [] );
 
-    const [doFetchUsers, isLoadingUsers, loadingUsersError] = useThunk(fetchUsers);
-    const [doCreateUser, isCreatingUser, creatingUserError] = useThunk(addUser);
+    const { data, error, isFetching } = useFetchUsersQuery();
+    console.log("after fetch users", data);
+    const [addUser, results] = useAddUserMutation();
+    console.log(results);
+
+    // const [doFetchUsers, isLoadingUsers, loadingUsersError] = useThunk(fetchUsers);
+    // const [doCreateUser, isCreatingUser, creatingUserError] = useThunk(addUser);
     
-    const {data} = useSelector((state) => {
+    const {users} = useSelector((state) => {
         return state.users; 
     });
  
-    useEffect(() => {
-        doFetchUsers()
-    }, [doFetchUsers]);
+    // useEffect(() => {
+    //     doFetchUsers()
+    // }, [doFetchUsers]);
 
 
 
@@ -51,9 +56,9 @@ function LoginPage( ) {
         event.preventDefault();
 
         let user;
-        if (data && data.length > 0) {
+        if (users && users.length > 0) {
             
-            user = data.find((item) => {    
+            user = users.find((item) => {    
                 return item.name === selectedName;
             });
         };
@@ -62,7 +67,7 @@ function LoginPage( ) {
             // create user
             console.log("create user")
             user = {name: selectedName, isAdmin: "no"}
-            doCreateUser(user)
+            addUser(user)
         } else {
             console.log("user found")
         };
@@ -70,9 +75,9 @@ function LoginPage( ) {
 
     
     let content;
-    if (isLoadingUsers) {
+    if (isFetching) {
         content =  <Skeleton times={1} className="h-10 w-full" />;
-    } else if (loadingUsersError) {
+    } else if (error) {
         content = <div>Error fetching data ...</div>;
     } else {
         const thisUser = data.find((item) => {   
@@ -102,7 +107,7 @@ function LoginPage( ) {
 				</div>
                 {emailValid}
                 {
-                    creatingUserError && 'Error creatingUser ...'
+ 
                 }
             </div>
             {content}

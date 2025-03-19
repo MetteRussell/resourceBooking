@@ -2,9 +2,10 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { useFetchReservedDatesForOneMaterialQuery } from '../store';
 import { useState, useEffect } from 'react';
-import { useLocation } from "react-router-dom";
+//import { useLocation } from "react-router-dom";
 import { useThunk } from '../hooks/useThunk';
 import axios from 'axios';
+import { useLocation } from "react-router";
 
 import Skeleton from './Skeleton';
 import Button from './Button';
@@ -16,8 +17,8 @@ import ExpandablePanel from './ExpandablePanel';
 
 import { formatDate } from '../utilities/dateFunctions';
 
-function AdminList( ) {
-
+function AdminList( {materials}) {
+console.log(materials);
      // for selected material based on a list of possible materials
     //  const [open, setOpen] = useState(false);
     //  const [selectedValue, setSelectedValue] = useState();

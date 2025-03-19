@@ -1,6 +1,5 @@
 
 import DeleteIcon from '@mui/icons-material/Delete';
-import ShowIcon from '@mui/icons-material/Sailing';
 import Link from './Link';
 import Button from './Button';
 import { deleteUser } from '../store';
@@ -45,10 +44,11 @@ function UsersListItem({ user , options}) {
     let administrator = "";
     if (user.isAdmin == "yes") {
         administrator = <>
-        
+        <Link to='/admin' >
             <Button className="mr-3 button is-lin"  onClick={handleAdmin} primary rounded >Go to Admin
-                <Link to='/admin' state={{materials: options}}></Link>
             </Button>
+            </Link>
+            
         </>
     } 
 

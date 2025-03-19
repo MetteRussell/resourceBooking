@@ -21,12 +21,7 @@ const userApi = createApi({
     endpoints(builder) {
         return {
             getUser: builder.query({
-                // providesTags: (result, error, user) => {
-                //     const tags = result.map(user => { 
-                //         return { type: 'User', id: user.id }
-                //     });
-                //     return tags;
-                // },
+                providesTags: (result, error, user) => {return [{type: 'User', id: user.id}]},
                 query: (user) => {
                     console.log("getuser api", user);
                     return {
@@ -39,24 +34,17 @@ const userApi = createApi({
                 }
             }),
             fetchUsers: builder.query({
-                // providesTags: (result, error, user) => {
-                //     return [{type: 'User', id: user.id}]
-                // },
+                providesTags: ['allUsers'],
                 query: () => {
                     console.log("user api");
                     return {
                         url: '/users',
-                        // params: {
-                        //     email: user.email
-                        // },
                         method: 'GET',
                     };
                 }
             }),
             addUser: builder.mutation({
-                invalidatesTags: (result, error, user) => {
-                    return [{type: 'User', id: user.id}]
-                },
+                invalidatesTags: ['allUsers'],
                 query: (user) => {
                     return {
                         url: '/users',

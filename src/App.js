@@ -2,6 +2,7 @@
 import Login from './components/Login';
 import Route from './components/Route';
 import AdminList from './components/AdminList'
+import Link from './components/Link';
 
 function App() {
 
