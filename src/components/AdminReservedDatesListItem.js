@@ -1,23 +1,25 @@
-
 import Button from './Button';
 import BuildIcon from '@mui/icons-material/Build';
-import { useGetUserQuery} from '../store';
+import DeleteIcon from '@mui/icons-material/Delete';
+import { useGetUserQuery, useRemoveReservedDateMutation } from '../store';
 import Skeleton from './Skeleton';
 
 function AdminReservedDatesListItem({ reservedDateObject }) {
-   
-    console.log(reservedDateObject);
+    const [removeReservedDate, results] = useRemoveReservedDateMutation();
+    
     const user = {
         id: reservedDateObject.userId
-    }
-   
+    }   
     const { data, error, isFetching } = useGetUserQuery(user);
-
     
+
+    const handleRemoveReservedDate = () => {
+        removeReservedDate(reservedDateObject);
+    };
+
     let content;
     if (isFetching) {
         content = <Skeleton times={3} />
-
     } else if (error) {
         content = <div>Error loading user.</div>
     } else {
@@ -25,7 +27,7 @@ function AdminReservedDatesListItem({ reservedDateObject }) {
     }
 
     const header = <>
-        <Button className="mr-2" ><BuildIcon /></Button>
+        <Button className="mr-2" loading={results.isLoading} onClick={handleRemoveReservedDate}><DeleteIcon /></Button>        
         {reservedDateObject.reservedDate},  {content}
         </>;
 

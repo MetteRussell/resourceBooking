@@ -2,8 +2,7 @@
 import {  useFetchReservedDatesForOneMaterialQuery  } from '../store';
 import AdminReservedDatesListItem from './AdminReservedDatesListItem';
 import Skeleton from './Skeleton';
-import { formatDate } from '../utilities/dateFunctions';
-
+//import { formatDate } from '../utilities/dateFunctions';
 
 function AdminReservedDatesList({ material }) {
 
@@ -11,16 +10,12 @@ function AdminReservedDatesList({ material }) {
         id: material.id,
         allMaterialId: material.id
     };
-
     const { data, error, isFetching } = useFetchReservedDatesForOneMaterialQuery(materialOne);
-      // filter and sort the date array
-      let dataVar = [];
-      if (data && data.length > 0) {
-  
-          // filter out dates back in time (so they can't be deleted)
-          let now = formatDate(new Date());
-          let filteredData = data.filter(dateObject =>  ( dateObject.reservedDate.split("-").join("")) <= now);
-          dataVar = JSON.parse(JSON.stringify(filteredData));
+
+      // sort descending based on reserved date
+    let dataVar = [];
+    if (data && data.length > 0) {
+          dataVar = JSON.parse(JSON.stringify(data));
           dataVar.sort((a, b) => {
               const nameA = a.reservedDate; 
               const nameB = b.reservedDate; 
@@ -35,8 +30,6 @@ function AdminReservedDatesList({ material }) {
               return 0;
           });
       };
-
-
 
     let content = '';
     if (isFetching) {
@@ -55,7 +48,7 @@ function AdminReservedDatesList({ material }) {
     return ( 
         <div>
             <div className="m-2 flex flex-row items-center justify-between" >
-            <h3 className="text-lg font-bold">Reserverede datoer for {material.label} </h3>
+            <h3 className="text-lg font-bold" >Reserverede datoer for {material.label} </h3>
             </div>
             <div>
                 {content}

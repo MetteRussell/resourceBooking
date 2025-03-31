@@ -6,12 +6,14 @@
       "isAdmin": "yes"
     },
     {
-      "id": "50e8",
-      "name": "frederik.husted@gmail.com"
+      "id": "2d46",
+      "name": "mogens@hotmail.com",
+      "isAdmin": "no"
     },
     {
-      "id": "a33d",
-      "name": "lene@gmail.com"
+      "id": "9517",
+      "name": "frederik.husted@gmail.com",
+      "isAdmin": "no"
     }
   ],
   "materials": [
@@ -22,32 +24,25 @@
       "allMaterialId": "1"
     },
     {
-      "id": "bf53",
-      "userId": "50e8",
+      "id": "0624",
+      "userId": "41d2",
+      "label": "Slynge 3",
+      "allMaterialId": "4"
+    },
+    {
+      "id": "cd4a",
+      "userId": "2d46",
       "label": "Slynge 1",
       "allMaterialId": "2"
     },
     {
-      "id": "7d13",
-      "userId": "41d2",
-      "label": "Slynge 2",
-      "allMaterialId": "3"
-    },
-    {
-      "id": "afd4",
-      "userId": "a33d",
-      "label": "Slynge 2",
-      "allMaterialId": "3"
+      "id": "8ee2",
+      "userId": "9517",
+      "label": "Slynge 1",
+      "allMaterialId": "2"
     }
   ],
   "reservedDates": [
-    {
-      "id": "bc74",
-      "materialId": "42e1",
-      "reservedDate": "2025-03-18",
-      "allMaterialId": "1",
-      "userId": "41d2"
-    },
     {
       "id": "cc6e",
       "materialId": "42e1",
@@ -56,32 +51,88 @@
       "userId": "41d2"
     },
     {
-      "id": "5535",
-      "materialId": "bf53",
-      "reservedDate": "2025-03-18",
+      "id": "2d22",
+      "materialId": "42e1",
+      "reservedDate": "2025-03-23",
+      "allMaterialId": "1",
+      "userId": "41d2"
+    },
+    {
+      "id": "1c4b",
+      "materialId": "7d13",
+      "reservedDate": "2025-03-24",
+      "allMaterialId": "3",
+      "userId": "41d2"
+    },
+    {
+      "id": "9ebe",
+      "materialId": "7d13",
+      "reservedDate": "2025-03-25",
+      "allMaterialId": "3",
+      "userId": "41d2"
+    },
+    {
+      "id": "40a9",
+      "materialId": "0624",
+      "reservedDate": "2025-03-24",
+      "allMaterialId": "4",
+      "userId": "41d2"
+    },
+    {
+      "id": "1776",
+      "materialId": "42e1",
+      "reservedDate": "2025-03-26",
+      "allMaterialId": "1",
+      "userId": "41d2"
+    },
+    {
+      "id": "f4c1",
+      "materialId": "42e1",
+      "reservedDate": "2025-03-28",
+      "allMaterialId": "1",
+      "userId": "41d2"
+    },
+    {
+      "id": "3fd6",
+      "materialId": "42e1",
+      "reservedDate": "2025-03-29",
+      "allMaterialId": "1",
+      "userId": "41d2"
+    },
+    {
+      "id": "294c",
+      "materialId": "42e1",
+      "reservedDate": "2025-03-31",
+      "allMaterialId": "1",
+      "userId": "41d2"
+    },
+    {
+      "id": "6d25",
+      "materialId": "42e1",
+      "reservedDate": "2025-04-01",
+      "allMaterialId": "1",
+      "userId": "41d2"
+    },
+    {
+      "id": "d8b3",
+      "materialId": "cd4a",
+      "reservedDate": "2025-03-31",
       "allMaterialId": "2",
-      "userId": "50e8"
+      "userId": "2d46"
     },
     {
-      "id": "dfbe",
-      "materialId": "7d13",
-      "reservedDate": "2025-03-20",
-      "allMaterialId": "3",
-      "userId": "41d2"
+      "id": "3658",
+      "materialId": "8ee2",
+      "reservedDate": "2025-04-01",
+      "allMaterialId": "2",
+      "userId": "9517"
     },
     {
-      "id": "1fa5",
-      "materialId": "7d13",
-      "reservedDate": "2025-03-19",
-      "allMaterialId": "3",
-      "userId": "41d2"
-    },
-    {
-      "id": "ba2f",
-      "materialId": "afd4",
-      "reservedDate": "2025-03-21",
-      "allMaterialId": "3",
-      "userId": "a33d"
+      "id": "077d",
+      "materialId": "8ee2",
+      "reservedDate": "2025-04-02",
+      "allMaterialId": "2",
+      "userId": "9517"
     }
   ],
   "allMaterials": [

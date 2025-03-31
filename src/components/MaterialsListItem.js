@@ -6,15 +6,12 @@ import { useFetchReservedDatesQuery, useAddReservedDateMutation } from '../store
 import ExpandablePanel from './ExpandablePanel';
 import ReservedDatesList from './ReservedDatesList';
 import { formatDate } from '../utilities/dateFunctions';
-import ImageItem from './ImageItem';
-import Link from './Link';
-//import { Link } from 'react-router-dom'
 
-//import myImage from '../IMG_4532.jpg';
 
 function MaterialsListItem({ material, options}) {
     const [removeMaterial, results] = useRemoveMaterialMutation();
     const { data, error, isFetching } = useFetchReservedDatesQuery(material);
+    
     const [errorMessage, setErrorMessage] = useState(null);
 
 

@@ -50,7 +50,8 @@ const userApi = createApi({
                         url: '/users',
                         method: 'POST',
                         body: {
-                            name: user.name
+                            name: user.name,
+                            isAdmin:user.isAdmin
                         } 
                     }
                 }

@@ -1,10 +1,33 @@
 
 import Login from './components/Login';
 import Route from './components/Route';
-import AdminList from './components/AdminList'
-import Link from './components/Link';
+import AdminList from './components/AdminList';
+import { useState, useEffect } from 'react';
+import { useFetchMaterialAllsQuery } from './store';
+import Skeleton from './components/Skeleton';
+
 
 function App() {
+
+    const { data, error, isFetching } = useFetchMaterialAllsQuery();
+
+    let content;
+    if (isFetching) {
+        content =  <Skeleton times={1} className="h-10 w-full" />;
+    } else if (error) {
+        content = <div>Error fetching data ...</div>;
+    } else {
+        content = <Login  options={data}></Login>
+    };
+
+    let admin;
+    if (isFetching) {
+        admin =  <Skeleton times={1} className="h-10 w-full" />;
+    } else if (error) {
+        admin = <div>Error fetching data ...</div>;
+    } else {
+        admin = <AdminList  options={data}></AdminList>
+    };
 
     return (
         <div className="container mx-auto ">
@@ -15,10 +38,10 @@ function App() {
 
         </div>
             <Route path ='/admin'  >
-                <AdminList />
+                {admin}
             </Route>
             <Route path='/'>
-                <Login />
+                {content}
             </Route>
         </div>
     );

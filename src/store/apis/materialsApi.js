@@ -42,9 +42,8 @@ const materialsApi = createApi({
             fetchMaterialById: builder.query({
                providesTags: (result, error, material) => {
                     const tags = result.map(material => { 
-                        return { type: 'Material', id: material.id }
+                        return { type: 'MaterialById', id: material.id }
                     });
-                   tags.push({ type: 'UserMaterial', userId: material.userId });
                    return tags;
                },
                 query: (material) => {

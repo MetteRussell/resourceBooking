@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { useFetchUsersQuery, useAddUserMutation, userGetUserQuery} from '../store';
+import { useFetchUsersQuery, useAddUserMutation, userGetUserQuery, useFetchMaterialAllsQuery} from '../store';
 
 import { useThunk } from '../hooks/useThunk';
 import axios from 'axios';
@@ -9,37 +9,15 @@ import Button from './Button';
 import UsersListItem from './UsersListItem';
 import validator from "validator";
 
-function LoginPage( ) {
-    const [materials, setMaterials] = useState([]);
+function LoginPage({options} ) {
+    
+    const [materials, setMaterials] = useState(options);
     const [selectedName, setSelectedName] = useState();
     const [emailError, setEmailError] = useState("");
 
-    const fetchMaterials = async () => {
-		const response = await axios.get('http://localhost:3005/allMaterials');
-		setMaterials(response.data);
-	};
-
-    useEffect(() => {
-		fetchMaterials();
-	}, [] );
-
     const { data, error, isFetching } = useFetchUsersQuery();
-    console.log("after fetch users", data);
+
     const [addUser, results] = useAddUserMutation();
-    console.log(results);
-
-    // const [doFetchUsers, isLoadingUsers, loadingUsersError] = useThunk(fetchUsers);
-    // const [doCreateUser, isCreatingUser, creatingUserError] = useThunk(addUser);
-    
-    const {users} = useSelector((state) => {
-        return state.users; 
-    });
- 
-    // useEffect(() => {
-    //     doFetchUsers()
-    // }, [doFetchUsers]);
-
-
 
 
 	const handleNameChange = (event) => {
@@ -56,9 +34,9 @@ function LoginPage( ) {
         event.preventDefault();
 
         let user;
-        if (users && users.length > 0) {
+        if (data && data.length > 0) {
             
-            user = users.find((item) => {    
+            user = data.find((item) => {    
                 return item.name === selectedName;
             });
         };
@@ -67,7 +45,7 @@ function LoginPage( ) {
             // create user
             console.log("create user")
             user = {name: selectedName, isAdmin: "no"}
-            addUser(user)
+            addUser(user);
         } else {
             console.log("user found")
         };
@@ -107,7 +85,7 @@ function LoginPage( ) {
 				</div>
                 {emailValid}
                 {
- 
+                    results.isSuccess     && 'Error creatingUser ...'
                 }
             </div>
             {content}

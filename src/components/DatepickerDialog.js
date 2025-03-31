@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import { useDispatch, useSelector  } from 'react-redux';
 import { useFetchReservedDatesForOneMaterialQuery } from '../store';
 import { formatDate } from '../utilities/dateFunctions';
 import Button from './Button';
@@ -39,18 +38,12 @@ const Styles = styled.div`
 
 function DatePickerDialog({ onSave, material } ) {
 
-  console.log(material);
-  const dispatch = useDispatch();
 
   const [message, setMessage] = useState(null);
   const [open, setOpen] = useState(false);
   const [date, setDate] = useState(null);
 
-
   const { data, error, isFetching} = useFetchReservedDatesForOneMaterialQuery(material);
-  console.log("all reserved dates for one material", data);
-
-
 
   const closeCalendar = false;
 
@@ -61,7 +54,6 @@ function DatePickerDialog({ onSave, material } ) {
       setMessage("Dato er invalid");
     }
     setDate(date);
-  
   };
 
   const handleClickOpen = () => {
@@ -74,9 +66,6 @@ function DatePickerDialog({ onSave, material } ) {
   const handleSave = () => {
     console.log("handleSave", date);
     setOpen(false);
-    let allDates = [];
-    // let currentDate = new Date(date);
-    // console.log(currentDate);
     onSave(date);
   };
 
@@ -87,7 +76,6 @@ function DatePickerDialog({ onSave, material } ) {
   let allReserved = [];
   if (data && data.length > 0) {
     allReserved = data.map ((dateObject) => {
-      console.log(dateObject);
       return dateObject.reservedDate;
     });
   }
@@ -100,7 +88,6 @@ function DatePickerDialog({ onSave, material } ) {
       <Dialog
         open={open}
         onClose={handleClose}
-       
       >
         <DialogTitle>Vælg dato</DialogTitle>
         <h3 className="pl-7 text-sm">{message}</h3>

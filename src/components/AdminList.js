@@ -1,37 +1,30 @@
 
-import { useDispatch, useSelector } from 'react-redux';
-import { useFetchReservedDatesForOneMaterialQuery } from '../store';
+//import { useDispatch, useSelector } from 'react-redux';
+//import { useFetchReservedDatesForOneMaterialQuery } from '../store';
 import { useState, useEffect } from 'react';
-//import { useLocation } from "react-router-dom";
-import { useThunk } from '../hooks/useThunk';
+
 import axios from 'axios';
-import { useLocation } from "react-router";
 
-import Skeleton from './Skeleton';
-import Button from './Button';
-import MaterialsListItem from './MaterialsListItem';
-import MaterialDialog from './MaterialDialog';
 import AdminListItem from './AdminListItem';
-import ExpandablePanel from './ExpandablePanel';
+//import ExpandablePanel from './ExpandablePanel';
 
 
-import { formatDate } from '../utilities/dateFunctions';
+//import { formatDate } from '../utilities/dateFunctions';
 
-function AdminList( {materials}) {
-console.log(materials);
-     // for selected material based on a list of possible materials
-    //  const [open, setOpen] = useState(false);
-    //  const [selectedValue, setSelectedValue] = useState();
-    const [allMaterials, setAllMaterials] = useState([]);   
+function AdminList( {options}) {
+console.log(options);
+ 
+    const [allMaterials, setAllMaterials] = useState(options);
+//    const [allMaterials, setAllMaterials] = useState([]);   
 
-    const fetchAllMaterials = async () => {
-		const response = await axios.get('http://localhost:3005/allMaterials');
-		setAllMaterials(response.data);
-	};
+    // const fetchAllMaterials = async () => {
+	// 	const response = await axios.get('http://localhost:3005/allMaterials');
+	// 	setAllMaterials(response.data);
+	// };
 
-    useEffect(() => {
-		fetchAllMaterials();
-	}, [] );
+    // useEffect(() => {
+	// 	fetchAllMaterials();
+	// }, [] );
 
     // filter and sort the date array
     let dataVar = [];

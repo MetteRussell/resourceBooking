@@ -2,57 +2,58 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import Link from './Link';
 import Button from './Button';
-import { deleteUser } from '../store';
-import { useThunk } from '../hooks/useThunk';
+//import { deleteUser } from '../store';
+//import { useThunk } from '../hooks/useThunk';
 import { useState } from 'react';
 import ExpandablePanel from './ExpandablePanel';
 import MaterialsList from  './MaterialsList';
-import AdminList from  './AdminList';
+//import AdminList from  './AdminList';
 
-import { useFetchMaterialsQuery } from '../store';
+import { useFetchMaterialsQuery, useRemoveUserMutation} from '../store';
 
 function UsersListItem({ user , options}) {
     console.log(user, options);
-    const [doDeleteUser, isDeletingUser, error] = useThunk(deleteUser); 
+
+    const [ deleteUser, results ] = useRemoveUserMutation();
     const { data, materialerror, isFetching } = useFetchMaterialsQuery(user);
+
     const [errorMessage, setErrorMessage] = useState(null);
 
-    const handleClick = () => {
+    const handleRemoveUser = () => {
         console.log("remove user",user);
         console.log("material for user", data);
 
         setErrorMessage(null);
         if (data && data.length > 0) {
             console.log("not possible to delete user");
+            setErrorMessage("bruger kan ikke slettes, da der findes valgt udstyr") ;
+
             
         } else {
-            doDeleteUser(user);
+            deleteUser(user);
         }
     }
+
     const handleAdmin = () => {
-        console.log("handleAdmin", options);
+        console.log("handleAdmin");
     }
 
     const header = <>
-        <Button className="mr-3" loading={isDeletingUser} onClick={handleClick}>
+        <Button className="mr-3" loading={results.isLoading} onClick={handleRemoveUser}>
             <DeleteIcon />
         </Button>
-        {error && <div>Error deleting user.</div>}            
         {user.name}
-        </>
+        </>;
 
     let administrator = "";
     if (user.isAdmin == "yes") {
         administrator = <>
-        <Link to='/admin' >
+        <Link to='/admin' state={{options}}>
             <Button className="mr-3 button is-lin"  onClick={handleAdmin} primary rounded >Go to Admin
             </Button>
-            </Link>
-            
+        </Link>    
         </>
-    } 
-
-
+    } ;
 
     return (
         <div>
@@ -60,8 +61,6 @@ function UsersListItem({ user , options}) {
         <ExpandablePanel header={header}>
             <MaterialsList user={user} options={options}/>
         </ExpandablePanel>
-        
- 
         {administrator}
         </div>
     )
