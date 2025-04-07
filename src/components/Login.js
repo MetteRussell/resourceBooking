@@ -1,15 +1,15 @@
 import { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useFetchUsersQuery, useAddUserMutation, userGetUserQuery, useFetchMaterialAllsQuery} from '../store';
+//import { useDispatch, useSelector } from 'react-redux';
+import { useFetchUsersQuery, useAddUserMutation } from '../store';
 
-import { useThunk } from '../hooks/useThunk';
-import axios from 'axios';
+// import { useThunk } from '../hooks/useThunk';
+// import axios from 'axios';
 import Skeleton from './Skeleton';
 import Button from './Button';
 import UsersListItem from './UsersListItem';
 import validator from "validator";
 
-function LoginPage({options} ) {
+function LoginPage( {options} ) {
     
     const [materials, setMaterials] = useState(options);
     const [selectedName, setSelectedName] = useState();

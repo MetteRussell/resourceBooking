@@ -1,8 +1,8 @@
 import Button from './Button';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { useState } from 'react';
-import { useRemoveMaterialMutation } from '../store';
-import { useFetchReservedDatesQuery, useAddReservedDateMutation } from '../store';
+import { useRemoveMaterialMutation, useFetchReservedDatesQuery } from '../store';
+
 import ExpandablePanel from './ExpandablePanel';
 import ReservedDatesList from './ReservedDatesList';
 import { formatDate } from '../utilities/dateFunctions';
@@ -11,9 +11,8 @@ import { formatDate } from '../utilities/dateFunctions';
 function MaterialsListItem({ material, options}) {
     const [removeMaterial, results] = useRemoveMaterialMutation();
     const { data, error, isFetching } = useFetchReservedDatesQuery(material);
-    
-    const [errorMessage, setErrorMessage] = useState(null);
 
+    const [errorMessage, setErrorMessage] = useState(null);
 
     const handleRemoveMaterial = () => {
         console.log("remove material", material);
@@ -56,7 +55,6 @@ function MaterialsListItem({ material, options}) {
             </ExpandablePanel>
         </div>
     );
-
 }
 
 export default MaterialsListItem;

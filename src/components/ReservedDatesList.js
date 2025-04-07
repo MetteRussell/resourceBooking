@@ -24,6 +24,10 @@ function ReservedDatesList({ material }) {
         console.log("handleSave", selectedObject);
         setOpen(false);
 
+        if ( !selectedObject ) {
+            return;
+        }
+
         let selectedDateObject = {};
         let reservedDate = new Date(selectedObject).toLocaleDateString("fr-CA", {year:"numeric", month: "2-digit", day:"2-digit"});
         selectedDateObject = {
@@ -44,7 +48,6 @@ function ReservedDatesList({ material }) {
         // filter out dates back in time (so they can't be deleted)
         let now = formatDate(new Date());
         let filteredData = data.filter(dateObject =>  ( dateObject.reservedDate.split("-").join("")) >= now);
-console.log("filteredData",filteredData);
         dataVar = JSON.parse(JSON.stringify(filteredData));
         dataVar.sort((a, b) => {
             const nameA = a.reservedDate; 

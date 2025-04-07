@@ -2,7 +2,6 @@
 import Login from './components/Login';
 import Route from './components/Route';
 import AdminList from './components/AdminList';
-import { useState, useEffect } from 'react';
 import { useFetchMaterialAllsQuery } from './store';
 import Skeleton from './components/Skeleton';
 

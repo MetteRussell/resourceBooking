@@ -2,12 +2,9 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import Link from './Link';
 import Button from './Button';
-//import { deleteUser } from '../store';
-//import { useThunk } from '../hooks/useThunk';
 import { useState } from 'react';
 import ExpandablePanel from './ExpandablePanel';
 import MaterialsList from  './MaterialsList';
-//import AdminList from  './AdminList';
 
 import { useFetchMaterialsQuery, useRemoveUserMutation} from '../store';
 
@@ -27,8 +24,6 @@ function UsersListItem({ user , options}) {
         if (data && data.length > 0) {
             console.log("not possible to delete user");
             setErrorMessage("bruger kan ikke slettes, da der findes valgt udstyr") ;
-
-            
         } else {
             deleteUser(user);
         }

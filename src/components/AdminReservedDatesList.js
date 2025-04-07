@@ -2,7 +2,6 @@
 import {  useFetchReservedDatesForOneMaterialQuery  } from '../store';
 import AdminReservedDatesListItem from './AdminReservedDatesListItem';
 import Skeleton from './Skeleton';
-//import { formatDate } from '../utilities/dateFunctions';
 
 function AdminReservedDatesList({ material }) {
 
@@ -12,7 +11,7 @@ function AdminReservedDatesList({ material }) {
     };
     const { data, error, isFetching } = useFetchReservedDatesForOneMaterialQuery(materialOne);
 
-      // sort descending based on reserved date
+    // sort descending based on reserved date
     let dataVar = [];
     if (data && data.length > 0) {
           dataVar = JSON.parse(JSON.stringify(data));
@@ -48,7 +47,7 @@ function AdminReservedDatesList({ material }) {
     return ( 
         <div>
             <div className="m-2 flex flex-row items-center justify-between" >
-            <h3 className="text-lg font-bold" >Reserverede datoer for {material.label} </h3>
+                <h3 className="text-lg font-bold" >Reserverede datoer for {material.label} </h3>
             </div>
             <div>
                 {content}
