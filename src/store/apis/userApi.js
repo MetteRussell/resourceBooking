@@ -11,7 +11,7 @@ const pause = (duration) => {
 const userApi = createApi({
     reducerPath: 'user',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://localhost:3005',
+        baseUrl: 'http://157.180.67.124:3005',
         // DEV ONLY
         // fetchFn: async (...args) => {
         //     await pause(1000);
