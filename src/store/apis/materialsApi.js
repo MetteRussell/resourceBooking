@@ -1,5 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { faker } from '@faker-js/faker';
+import keys from '../../config/keys.js';
 
 // DEV ONLY
 const pause = (duration) => {
@@ -11,14 +11,16 @@ const pause = (duration) => {
 const materialsApi = createApi({
     reducerPath: 'materials',
     baseQuery: fetchBaseQuery({
-        baseUrl: 'http://157.180.67.124:3005',
+        baseUrl: keys.url+':3005',
         // DEV ONLY
         // fetchFn: async (...args) => {
         //     await pause(1000);
         //     return fetch(...args);
         // }
+        
     }),
     endpoints(builder) {
+        
         return {
             fetchMaterials: builder.query({
                 providesTags: (result, error, user) => {

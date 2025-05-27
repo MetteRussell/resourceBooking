@@ -29,6 +29,11 @@
       "id": "9058",
       "name": "tim@gmail.com",
       "isAdmin": "no"
+    },
+    {
+      "id": "2738",
+      "name": "test@test.dk",
+      "isAdmin": "no"
     }
   ],
   "materials": [
@@ -218,6 +223,13 @@
       "reservedDate": "2025-05-16",
       "allMaterialId": "1",
       "userId": "f98e"
+    },
+    {
+      "id": "b577",
+      "materialId": "42e1",
+      "reservedDate": "2025-05-28",
+      "allMaterialId": "1",
+      "userId": "41d2"
     }
   ],
   "allMaterials": [

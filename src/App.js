@@ -4,6 +4,7 @@ import Route from './components/Route';
 import AdminList from './components/AdminList';
 import { useFetchMaterialAllsQuery } from './store';
 import Skeleton from './components/Skeleton';
+import keys from './config/keys.js';
 
 
 function App() {
@@ -28,6 +29,8 @@ function App() {
         admin = <AdminList  options={data}></AdminList>
     };
 
+    console.log(process.env.NODE_ENV );
+    console.log(keys.url);
     return (
         <div className="container mx-auto ">
             <div className="flex flex-wrap items-center bg-green-500 gap-x-4 gap-y-10 p-10">

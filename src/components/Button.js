@@ -1,5 +1,4 @@
 import className from 'classnames';
-import { GoSync } from 'react-icons/go';
 
 function Button({
   children,

@@ -41,7 +41,7 @@ function UsersListItem({ user , options}) {
         </>;
 
     let administrator = "";
-    if (user.isAdmin == "yes") {
+    if (user.isAdmin === "yes") {
         administrator = <>
         <Link to='/admin' state={{options}}>
             <Button className="mr-3 button is-lin"  onClick={handleAdmin} primary rounded >Go to Admin
