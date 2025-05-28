@@ -4,233 +4,11 @@
       "id": "41d2",
       "name": "mette_russell@hotmail.com",
       "isAdmin": "yes"
-    },
-    {
-      "id": "2d46",
-      "name": "mogens@hotmail.com",
-      "isAdmin": "no"
-    },
-    {
-      "id": "9517",
-      "name": "frederik.husted@gmail.com",
-      "isAdmin": "no"
-    },
-    {
-      "id": "4028",
-      "name": "stig.mellergaard@gtt2net.dk",
-      "isAdmin": "no"
-    },
-    {
-      "id": "f98e",
-      "name": "frederik_hiusted@gmail.com",
-      "isAdmin": "no"
-    },
-    {
-      "id": "9058",
-      "name": "tim@gmail.com",
-      "isAdmin": "no"
-    },
-    {
-      "id": "2738",
-      "name": "test@test.dk",
-      "isAdmin": "no"
     }
   ],
   "materials": [
-    {
-      "id": "42e1",
-      "userId": "41d2",
-      "label": "Presse",
-      "allMaterialId": "1"
-    },
-    {
-      "id": "0624",
-      "userId": "41d2",
-      "label": "Slynge 3",
-      "allMaterialId": "4"
-    },
-    {
-      "id": "cd4a",
-      "userId": "2d46",
-      "label": "Slynge 1",
-      "allMaterialId": "2"
-    },
-    {
-      "id": "8ee2",
-      "userId": "9517",
-      "label": "Slynge 1",
-      "allMaterialId": "2"
-    },
-    {
-      "id": "ffd4",
-      "userId": "9517",
-      "label": "Slynge 3",
-      "allMaterialId": "4"
-    },
-    {
-      "id": "5d2b",
-      "userId": "41d2",
-      "label": "Slynge 2",
-      "allMaterialId": "3"
-    },
-    {
-      "id": "0c21",
-      "userId": "4028",
-      "label": "Slynge 1",
-      "allMaterialId": "2"
-    },
-    {
-      "id": "7e45",
-      "userId": "4028",
-      "label": "Presse",
-      "allMaterialId": "1"
-    },
-    {
-      "id": "1e77",
-      "userId": "f98e",
-      "label": "Presse",
-      "allMaterialId": "1"
-    },
-    {
-      "id": "ffac",
-      "userId": "9058",
-      "label": "Presse",
-      "allMaterialId": "1"
-    }
   ],
   "reservedDates": [
-    {
-      "id": "1c4b",
-      "materialId": "7d13",
-      "reservedDate": "2025-03-24",
-      "allMaterialId": "3",
-      "userId": "41d2"
-    },
-    {
-      "id": "9ebe",
-      "materialId": "7d13",
-      "reservedDate": "2025-03-25",
-      "allMaterialId": "3",
-      "userId": "41d2"
-    },
-    {
-      "id": "40a9",
-      "materialId": "0624",
-      "reservedDate": "2025-03-24",
-      "allMaterialId": "4",
-      "userId": "41d2"
-    },
-    {
-      "id": "3fd6",
-      "materialId": "42e1",
-      "reservedDate": "2025-03-29",
-      "allMaterialId": "1",
-      "userId": "41d2"
-    },
-    {
-      "id": "294c",
-      "materialId": "42e1",
-      "reservedDate": "2025-03-31",
-      "allMaterialId": "1",
-      "userId": "41d2"
-    },
-    {
-      "id": "6d25",
-      "materialId": "42e1",
-      "reservedDate": "2025-04-01",
-      "allMaterialId": "1",
-      "userId": "41d2"
-    },
-    {
-      "id": "3658",
-      "materialId": "8ee2",
-      "reservedDate": "2025-04-01",
-      "allMaterialId": "2",
-      "userId": "9517"
-    },
-    {
-      "id": "077d",
-      "materialId": "8ee2",
-      "reservedDate": "2025-04-02",
-      "allMaterialId": "2",
-      "userId": "9517"
-    },
-    {
-      "id": "956a",
-      "materialId": "8ee2",
-      "reservedDate": "2025-04-07",
-      "allMaterialId": "2",
-      "userId": "9517"
-    },
-    {
-      "id": "e274",
-      "materialId": "42e1",
-      "reservedDate": "2025-04-07",
-      "userId": "41d2"
-    },
-    {
-      "id": "c58d",
-      "materialId": "0624",
-      "reservedDate": "2025-04-07",
-      "allMaterialId": "4",
-      "userId": "41d2"
-    },
-    {
-      "id": "d233",
-      "materialId": "ffd4",
-      "reservedDate": "2025-04-08",
-      "allMaterialId": "4",
-      "userId": "9517"
-    },
-    {
-      "id": "8427",
-      "materialId": "ffd4",
-      "reservedDate": "2025-04-09",
-      "allMaterialId": "4",
-      "userId": "9517"
-    },
-    {
-      "id": "8e56",
-      "materialId": "42e1",
-      "reservedDate": "2025-04-08",
-      "allMaterialId": "1",
-      "userId": "41d2"
-    },
-    {
-      "id": "b3e3",
-      "materialId": "0624",
-      "reservedDate": "2025-04-10",
-      "allMaterialId": "4",
-      "userId": "41d2"
-    },
-    {
-      "id": "4853",
-      "materialId": "42e1",
-      "reservedDate": "2025-05-06",
-      "allMaterialId": "1",
-      "userId": "41d2"
-    },
-    {
-      "id": "8e1a",
-      "materialId": "0c21",
-      "reservedDate": "2025-05-06",
-      "allMaterialId": "2",
-      "userId": "4028"
-    },
-    {
-      "id": "ea38",
-      "materialId": "1e77",
-      "reservedDate": "2025-05-16",
-      "allMaterialId": "1",
-      "userId": "f98e"
-    },
-    {
-      "id": "b577",
-      "materialId": "42e1",
-      "reservedDate": "2025-05-28",
-      "allMaterialId": "1",
-      "userId": "41d2"
-    }
   ],
   "allMaterials": [
     {
@@ -239,19 +17,29 @@
       "url": "presse.jpg"
     },
     {
-      "label": "Slynge 1",
+      "label": "Slynge 6-sold",
       "id": "2",
       "url": "slynge-6sold.jpg"
     },
     {
-      "label": "Slynge 2",
+      "label": "Slynge 4-sold",
       "id": "3",
-      "url": "slynge-2sold.jpg"
+      "url": "slynge-4sold.jpg"
     },
     {
-      "label": "Slynge 3",
+      "label": "Slynge 4-sold rød",
       "id": "4",
+      "url": "slynge-4sold-rod.jpg"
+    },
+    {
+      "label": "Slynge 2-sold",
+      "id": "5",
       "url": "slynge-2sold-med-ben.jpg"
+    },
+    {
+      "label": "Slynge 2-sold blå",
+      "id": "6",
+      "url": "slynge-2sold.jpg"
     }
   ]
 }
