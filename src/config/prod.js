@@ -1,3 +1,3 @@
 module.exports = {
-    url: 'http://157.180.67.124'
+    url: 'http://37.27.249.201'
 }
