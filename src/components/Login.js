@@ -22,7 +22,7 @@ function LoginPage( {options} ) {
 
 	const handleNameChange = (event) => {
         const thisName = event.target.value;
-        setSelectedName(thisName);
+        setSelectedName(thisName.trim().toLowerCase());
         if (validator.isEmail(thisName)) {
             setEmailError("");
         } else {
