@@ -1,18 +1,15 @@
 import { useState } from 'react';
-//import { useDispatch, useSelector } from 'react-redux';
 import { useFetchUsersQuery, useAddUserMutation } from '../store';
 
-// import { useThunk } from '../hooks/useThunk';
-// import axios from 'axios';
 import Skeleton from './Skeleton';
 import Button from './Button';
 import UsersListItem from './UsersListItem';
 import validator from "validator";
 
 function LoginPage( {options} ) {
-    
+    console.log("Login page");
     const [materials, setMaterials] = useState(options);
-    const [selectedName, setSelectedName] = useState();
+    const [selectedName, setSelectedName] = useState("");
     const [emailError, setEmailError] = useState("");
 
     const { data, error, isFetching } = useFetchUsersQuery();
@@ -33,6 +30,7 @@ function LoginPage( {options} ) {
     const handleSubmit = (event) => {
         event.preventDefault();
 
+		console.log("handleSubmit");
         let user;
         if (data && data.length > 0) {
             

@@ -12,6 +12,7 @@ function UsersListItem({ user , options}) {
     console.log(user, options);
 
     const [ deleteUser, results ] = useRemoveUserMutation();
+	
     const { data, materialerror, isFetching } = useFetchMaterialsQuery(user);
 
     const [errorMessage, setErrorMessage] = useState(null);
@@ -25,6 +26,7 @@ function UsersListItem({ user , options}) {
             console.log("not possible to delete user");
             setErrorMessage("bruger kan ikke slettes, da der findes valgt udstyr") ;
         } else {
+			console.log("delete user now");
             deleteUser(user);
         }
     }
@@ -34,10 +36,8 @@ function UsersListItem({ user , options}) {
     }
 
     const header = <>
-        <Button className="mr-3" loading={results.isLoading} onClick={handleRemoveUser}>
-            <DeleteIcon />
-        </Button>
-        {user.name}
+
+		{user.name} 
         </>;
 
     let administrator = "";

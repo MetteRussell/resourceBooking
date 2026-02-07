@@ -24,4 +24,4 @@ yarn-debug.log*
 yarn-error.log*
 # /db.json
 node_modules
-node_modules
+.project

@@ -62,6 +62,7 @@ const userApi = createApi({
                     return [{type: 'User', id: user.id}]
                 },
                 query: (user) => {
+					console.log("delete user");
                     return {
                         url: `/users/${user.id}`,
                         method: 'DELETE',

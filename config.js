@@ -1,4 +1,5 @@
 module.exports = {
     dev: 'localhost',
-    prod: '157.180.67.124'
+    oldprod: '157.180.67.124',
+	prod: '37.27.249.201'
 }

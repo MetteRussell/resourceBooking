@@ -1,6 +1,5 @@
 
 import { useState } from 'react';
-//import axios from 'axios';
 import AdminListItem from './AdminListItem';
 
 function AdminList( {options}) {
