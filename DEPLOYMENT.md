@@ -5,6 +5,7 @@ This guide covers deploying the NBV Resource Booking System on a Hetzner VPS (or
 ## Table of Contents
 - [Prerequisites](#prerequisites)
 - [Architecture Overview](#architecture-overview)
+- [Docker Concepts Explained](#docker-concepts-explained)
 - [Initial Server Setup](#initial-server-setup)
 - [Deployment Steps](#deployment-steps)
 - [Nginx Proxy Manager Configuration](#nginx-proxy-manager-configuration)
