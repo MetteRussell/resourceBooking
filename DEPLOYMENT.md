@@ -30,24 +30,140 @@ This guide covers deploying the NBV Resource Booking System on a Hetzner VPS (or
 
 ## Architecture Overview
 
+### Docker Container Architecture
 ```
-┌─────────────────────────────────────────────┐
-│           Nginx Proxy Manager               │
-│         (Ports 80, 443, 81)                 │
-└─────────────┬───────────────┬───────────────┘
-              │               │
-              ▼               ▼
-     ┌────────────┐   ┌─────────────┐
-     │  Frontend  │   │   Backend   │
-     │   (React)  │   │(JSON Server)│
-     │  Port 3000 │   │  Port 3005  │
-     └────────────┘   └─────┬───────┘
-                            │
-                            ▼
-                      ┌────────────┐
-                      │ db.json    │
-                      │(Persistent)│
-                      └────────────┘
+┌──────────────────────────────────────────────────────────────┐
+│                     Docker Host (VPS)                        │
+│                                                              │
+│  ┌────────────────────────────────────────────────────┐     │
+│  │            Docker Network: nbv-network             │     │
+│  │                                                    │     │
+│  │  ┌──────────────────────────────────────────┐     │     │
+│  │  │   Nginx Proxy Manager Container          │     │     │
+│  │  │   - Public Ports: 80, 443, 81           │     │     │
+│  │  │   - Handles SSL/TLS                     │     │     │
+│  │  │   - Routes requests based on path       │     │     │
+│  │  └──────────────┬───────────────────────────┘     │     │
+│  │                 │                                  │     │
+│  │     ┌───────────┴────────────┐                   │     │
+│  │     │                        │                   │     │
+│  │  ┌──▼─────────────┐   ┌─────▼──────────┐       │     │
+│  │  │ Frontend        │   │ Backend         │       │     │
+│  │  │ Container       │   │ Container       │       │     │
+│  │  │                 │   │                 │       │     │
+│  │  │ nginx:alpine    │   │ node:18-alpine  │       │     │
+│  │  │ Port 3000       │   │ Port 3005       │       │     │
+│  │  │ (internal)      │   │ (internal)      │       │     │
+│  │  └─────────────────┘   └────────┬────────┘       │     │
+│  │                                  │                │     │
+│  └──────────────────────────────────┼────────────────┘     │
+│                                     │                       │
+│                          ┌──────────▼──────────┐            │
+│                          │   Volume Mount      │            │
+│                          │   ./data/db/        │            │
+│                          │   (Persistent)      │            │
+│                          └─────────────────────┘            │
+└──────────────────────────────────────────────────────────────┘
+```
+
+### Request Flow
+```
+Browser (Client)
+    │
+    ├─[GET your-domain.com]────────────► NPM ─────► Frontend Container
+    │                                              (serves React app)
+    │
+    └─[GET your-domain.com/api/users]──► NPM ─────► Backend Container
+                                         (proxy)    (JSON Server)
+                                           │
+                                           └─ Strips /api prefix
+                                              Forwards as /users
+```
+
+### How Browser-to-Backend Communication Works
+
+1. **Browser loads React app**:
+   - Request: `https://your-domain.com`
+   - NPM routes to Frontend container
+   - nginx serves the built React app
+
+2. **React app makes API calls**:
+   - Request: `https://your-domain.com/api/users`
+   - NPM receives request on same domain (no CORS)
+   - NPM strips `/api` prefix via rewrite rule
+   - NPM forwards to Backend container as `/users`
+   - Backend responds with JSON data
+   - NPM returns response to browser
+
+3. **Why this works**:
+   - All requests go through same domain
+   - Internal Docker network for container communication
+   - No exposed backend ports (security)
+   - SSL termination at NPM level
+
+### Architecture Diagram (Mermaid)
+
+```mermaid
+graph TB
+    subgraph Internet
+        Browser[Browser/Client]
+    end
+    
+    subgraph "Docker Host - VPS"
+        subgraph "Docker Network: nbv-network"
+            NPM[Nginx Proxy Manager<br/>Ports: 80, 443, 81]
+            Frontend[Frontend Container<br/>nginx:alpine<br/>Port: 3000]
+            Backend[Backend Container<br/>node:18-alpine<br/>Port: 3005]
+        end
+        
+        subgraph "Persistent Storage"
+            DB[(db.json<br/>Volume Mount)]
+        end
+    end
+    
+    Browser -->|"https://your-domain.com"| NPM
+    Browser -->|"https://your-domain.com/api/*"| NPM
+    
+    NPM -->|"Route /"| Frontend
+    NPM -->|"Proxy /api/*<br/>(strip prefix)"| Backend
+    
+    Frontend -.->|"Serves React App"| Browser
+    Backend -->|"Read/Write"| DB
+    Backend -.->|"JSON Response"| NPM
+    
+    style NPM fill:#e1f5fe
+    style Frontend fill:#f3e5f5
+    style Backend fill:#e8f5e9
+    style DB fill:#fff3e0
+    style Browser fill:#fce4ec
+```
+
+### Request Flow Sequence (Mermaid)
+
+```mermaid
+sequenceDiagram
+    participant B as Browser
+    participant NPM as Nginx Proxy Manager
+    participant F as Frontend Container
+    participant API as Backend Container
+    participant DB as db.json
+    
+    Note over B,DB: Initial Page Load
+    B->>NPM: GET https://your-domain.com
+    NPM->>F: Forward to Frontend:3000
+    F-->>NPM: Return React App
+    NPM-->>B: Serve React App
+    
+    Note over B,DB: API Call from React
+    B->>NPM: GET https://your-domain.com/api/users
+    Note right of NPM: Strip /api prefix
+    NPM->>API: GET http://backend:3005/users
+    API->>DB: Read users data
+    DB-->>API: Return data
+    API-->>NPM: JSON response
+    NPM-->>B: JSON response (same origin)
+    
+    Note over B: No CORS issues!<br/>Same domain for all requests
 ```
 
 ## Initial Server Setup
