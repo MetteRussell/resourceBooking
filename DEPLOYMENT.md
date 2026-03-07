@@ -121,8 +121,8 @@ graph TB
         end
     end
     
-    Browser -->|"https://your-domain.com"| NPM
-    Browser -->|"https://your-domain.com/api/*"| NPM
+    Browser -->|"https\://your-domain.com"| NPM
+    Browser -->|"https\://your-domain.com/api/*"| NPM
     
     NPM -->|"Route /"| Frontend
     NPM -->|"Proxy /api/*<br/>(strip prefix)"| Backend
@@ -165,6 +165,116 @@ sequenceDiagram
     
     Note over B: No CORS issues!<br/>Same domain for all requests
 ```
+
+## Docker Concepts Explained
+
+Understanding the Docker components used in this deployment will help you troubleshoot and maintain your application.
+
+### Docker Containers
+
+**What they are**: Lightweight, standalone packages that include everything needed to run an application - code, runtime, libraries, and dependencies.
+
+**In our setup**:
+- **Frontend Container**: Runs nginx with the built React application
+- **Backend Container**: Runs Node.js with JSON Server
+- **Nginx Proxy Manager Container**: Handles reverse proxy, SSL, and routing
+
+**Benefits**:
+- ✅ Consistent environment across development and production
+- ✅ Easy to scale, update, or replace individual components
+- ✅ Isolation prevents conflicts between services
+
+### Docker Networks
+
+**What it is**: A virtual network that allows containers to communicate with each other securely.
+
+**In our setup**:
+- Network name: `nbv-network`
+- All three containers are connected to this network
+- Containers can reach each other by container name (e.g., `frontend`, `backend`)
+- External traffic only reaches containers through NPM
+
+**Benefits**:
+- ✅ Internal communication doesn't go through public internet
+- ✅ Security through network isolation
+- ✅ Easy service discovery (containers find each other by name)
+
+### Volume Mounts
+
+**What they are**: A way to persist data outside of containers, so data survives container restarts and updates.
+
+**In our setup**:
+```
+Host Directory                    Container Path              Purpose
+./data/db/                   →    /data                      Database persistence
+./data/nginx-proxy-manager/  →    /data                      NPM settings & SSL certs
+./data/nginx-proxy-manager/  →    /etc/letsencrypt          SSL certificates
+```
+
+**Benefits**:
+- ✅ Database survives backend container restarts
+- ✅ SSL certificates persist across NPM updates
+- ✅ Easy backups (just copy the data directories)
+- ✅ Configuration changes persist
+
+### Docker Host
+
+**What it is**: The physical or virtual machine (your VPS) that runs the Docker engine and all containers.
+
+**In our setup**:
+- Your Hetzner VPS is the Docker host
+- Runs Ubuntu with Docker engine installed
+- Manages container lifecycle, networking, and storage
+- Only ports 80, 443, and 81 are exposed to the internet
+
+**Benefits**:
+- ✅ One server manages all application components
+- ✅ Resource sharing between containers
+- ✅ Centralized monitoring and logging
+
+### Docker Compose
+
+**What it is**: A tool for defining and running multi-container Docker applications using a YAML file.
+
+**Our docker-compose.yml defines**:
+- Which containers to run
+- How containers connect to each other
+- Port mappings and volume mounts
+- Environment variables and dependencies
+
+**Benefits**:
+- ✅ Single command to start/stop entire application
+- ✅ Ensures containers start in correct order
+- ✅ Easy to replicate setup on different servers
+- ✅ Version controlled infrastructure as code
+
+### How It All Works Together
+
+1. **Docker Compose** reads the configuration file and creates:
+   - The `nbv-network` network
+   - Three containers from their respective images
+   - Volume mounts for data persistence
+
+2. **Containers communicate** through the internal network:
+   - NPM can reach `frontend:3000` and `backend:3005`
+   - Backend can read/write to the mounted database volume
+   - Only NPM exposes ports to the outside world
+
+3. **Data persists** through volume mounts:
+   - Your booking data stays safe in `./data/db/`
+   - NPM configuration and SSL certificates are preserved
+   - Container updates don't lose data
+
+4. **The Docker Host** manages it all:
+   - Starts containers automatically on boot
+   - Handles resource allocation
+   - Provides logging and monitoring capabilities
+
+This containerized approach makes your application:
+- **Portable**: Works the same on any Docker-capable server
+- **Scalable**: Easy to add more instances or services
+- **Maintainable**: Updates are isolated and reversible
+- **Secure**: Services are isolated from each other and the host
 
 ## Initial Server Setup
 
