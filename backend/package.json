@@ -1,0 +1,19 @@
+{
+  "name": "nbv-booking-backend",
+  "version": "1.0.0",
+  "description": "JSON Server backend for NBV Resource Booking System",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "dependencies": {
+    "json-server": "^0.17.4"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

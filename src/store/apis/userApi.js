@@ -12,7 +12,7 @@ const pause = (duration) => {
 const userApi = createApi({
     reducerPath: 'user',
     baseQuery: fetchBaseQuery({
-        baseUrl: keys.url+':3005',
+        baseUrl: keys.url,
         // DEV ONLY
         // fetchFn: async (...args) => {
         //     await pause(1000);

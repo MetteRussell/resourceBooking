@@ -109,6 +109,10 @@ The `db.json` file contains:
 
 **Note**: JSON Server is intended for development/prototyping. For production use, consider migrating to a real database solution.
 
+## Deployment
+
+For production deployment using Docker and Nginx Proxy Manager, see [DEPLOYMENT.md](./DEPLOYMENT.md).
+
 ## Development
 
 For development guidance when using Claude Code, refer to [CLAUDE.md](./CLAUDE.md)

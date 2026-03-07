@@ -11,7 +11,7 @@ const pause = (duration) => {
 const reservedDateApi = createApi({
     reducerPath: 'reservedDates',
     baseQuery: fetchBaseQuery({
-    baseUrl: keys.url+':3005',
+    baseUrl: keys.url,
     // // DEV ONLY
     // fetchFn: async (...args) => {
     //     await pause(1000);

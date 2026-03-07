@@ -25,3 +25,18 @@ yarn-error.log*
 # /db.json
 node_modules
 .project
+
+# Docker
+data/
+*.log
+.env
+
+# Deployment
+data/nginx-proxy-manager/
+data/db/
+backup/
+*.backup
+
+# IDE
+.vscode/
+.idea/
