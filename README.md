@@ -1,79 +1,118 @@
-# Getting Started with Create React App
+# NBV Resource Booking System
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+A web-based resource booking system for managing equipment and material reservations. Users can browse available equipment, make date-based reservations, and administrators can manage users and bookings.
+
+## Features
+
+- **User Management**: Email-based authentication with automatic user creation
+- **Equipment Catalog**: Browse available materials and equipment
+- **Date Reservations**: Book resources for specific dates
+- **Admin Panel**: Manage users, view all reservations, and control inventory
+- **Responsive Design**: Works on desktop and mobile devices
+
+## Tech Stack
+
+- **Frontend**: React 18, Redux Toolkit (RTK Query), React Router
+- **Styling**: Tailwind CSS, Material-UI, React Bootstrap
+- **Backend**: JSON Server (development/mock API)
+- **State Management**: Redux Toolkit with RTK Query
+- **Date Handling**: React DatePicker
+- **Build Tool**: Create React App
+
+## Prerequisites
+
+- Node.js (v14 or higher)
+- npm or yarn
+
+## Installation
+
+1. Clone the repository:
+```bash
+git clone [repository-url]
+cd resourceBooking
+```
+
+2. Install dependencies:
+```bash
+npm install
+```
+
+## Running the Application
+
+You need to run both the React app and the JSON Server:
+
+### Start the React Application
+```bash
+npm start
+```
+The app will open at [http://localhost:3000](http://localhost:3000)
+
+### Start the JSON Server (Backend)
+In a separate terminal:
+```bash
+npm run start:server
+```
+The API server will run at [http://localhost:3005](http://localhost:3005)
 
 ## Available Scripts
 
-In the project directory, you can run:
-
 ### `npm start`
+Runs the app in development mode at [http://localhost:3000](http://localhost:3000)
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+### `npm run start:server`
+Starts the JSON Server API at [http://localhost:3005](http://localhost:3005)
 
 ### `npm test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Launches the test runner in interactive watch mode
 
 ### `npm run build`
+Builds the app for production to the `build` folder
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+## Project Structure
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+For detailed architecture documentation, see [ARCHITECTURE.md](./ARCHITECTURE.md)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
-
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-
-## Postgres
-
-```bash
-docker run -itd -e POSTGRES_USER=my_user -e POSTGRES_PASSWORD=root -p 5432:5432  --name postgresql postgres
-
-PGPASSWORD=root psql -h localhost -p 5432 -U my_user 
 ```
+src/
+├── components/     # React components
+├── store/          # Redux store (RTK Query APIs)
+├── hooks/          # Custom React hooks
+├── config/         # Environment configuration
+├── utilities/      # Helper functions
+└── App.js          # Root component
+```
+
+## Configuration
+
+The application uses environment-based configuration:
+- **Development**: API points to `http://localhost:3005`
+- **Production**: API points to `http://37.27.249.201:3005`
+
+Configuration is automatically selected based on `NODE_ENV`.
+
+## User Roles
+
+1. **Regular Users**: Can browse materials and make reservations
+2. **Administrators**: Full access to user management and all reservations
+
+Admin access is determined by the `isAdmin` flag in the user record.
+
+## Database
+
+The application currently uses JSON Server as a mock backend with `db.json` as the database file. This provides a simple REST API for development and testing.
+
+The `db.json` file contains:
+- **users**: User accounts with email and admin status
+- **allMaterials**: Complete catalog of available equipment
+- **materials**: User-specific material selections
+- **reservedDates**: Date-based resource bookings
+
+**Note**: JSON Server is intended for development/prototyping. For production use, consider migrating to a real database solution.
+
+## Development
+
+For development guidance when using Claude Code, refer to [CLAUDE.md](./CLAUDE.md)
+
+## License
+
+This project is private and proprietary.
