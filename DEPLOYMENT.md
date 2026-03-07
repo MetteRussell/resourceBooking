@@ -240,6 +240,19 @@ Default credentials:
    - **Websockets Support**: ✓ (if needed)
 
 #### API Proxy
+
+**How this works**: The React frontend makes API calls directly from the browser to `/api/*` endpoints. These requests are proxied through NPM to the backend, avoiding CORS issues since everything appears to come from the same domain.
+
+**Request flow example**:
+1. Browser loads React app from `your-domain.com`
+2. React app makes API call to `/api/users` (same domain, no CORS)
+3. NPM receives the request at `your-domain.com/api/users`
+4. NPM strips the `/api` prefix (becomes `/users`)
+5. NPM forwards to `backend:3005/users`
+6. Backend responds with JSON data
+7. NPM returns response to browser
+
+**Configuration steps**:
 1. Click "Add Proxy Host"
 2. Configure:
    - **Domain Names**: `your-domain.com`
@@ -255,6 +268,13 @@ Default credentials:
    ```nginx
    rewrite ^/api/(.*)$ /$1 break;
    ```
+
+**Why this setup**:
+- ✅ No CORS issues (same origin policy satisfied)
+- ✅ Clean URLs without port numbers
+- ✅ SSL works for both frontend and API
+- ✅ Backend port (3005) not exposed publicly
+- ✅ All API calls go through the same domain
 
 ## SSL Configuration
 
