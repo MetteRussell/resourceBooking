@@ -46,18 +46,72 @@ This is your primary command for deploying new code. Here's what each part does:
    - Frontend: Port 3000 web server
    - Backend: Port 3005 API endpoints
 
+## Git Setup and Authentication
+
+### Setting Up Git Pull Access
+
+#### Option 1: SSH Keys (Recommended for Security)
+
+1. **Generate SSH key on server** (if not already done):
+```bash
+ssh-keygen -t ed25519 -C "your-email@example.com"
+# Press Enter to accept default location
+# Enter passphrase (optional but recommended)
+```
+
+2. **Add SSH key to GitHub**:
+```bash
+# Display your public key
+cat ~/.ssh/id_ed25519.pub
+```
+Copy the output and add it to GitHub: Settings → SSH and GPG keys → New SSH key
+
+3. **Test connection**:
+```bash
+ssh -T git@github.com
+```
+
+4. **Clone or update remote URL to use SSH**:
+```bash
+cd /root/resourceBooking
+git remote set-url origin git@github.com:MetteRussell/resourceBooking.git
+```
+
+#### Option 2: Personal Access Token
+
+1. **Create token on GitHub**: Settings → Developer settings → Personal access tokens → Generate new token (classic)
+   - Select scopes: `repo` (full control of private repositories)
+
+2. **Configure Git to use token**:
+```bash
+cd /root/resourceBooking
+git remote set-url origin https://<token>@github.com/MetteRussell/resourceBooking.git
+```
+
+3. **Or use credential helper**:
+```bash
+git config --global credential.helper store
+# Then on first pull, enter username and token as password
+```
+
 ## Deployment Workflows
 
 ### 1. Standard Code Deployment
 
-After pushing new code to your server:
+After pushing new code to GitHub:
 
 ```bash
 # Navigate to project directory
-cd /opt/nbv-booking
+cd /root/resourceBooking
 
-# Pull latest changes
+# Pull latest changes from GitHub
 git pull origin main
+
+# If there are merge conflicts, resolve them:
+# git status  # See conflicted files
+# nano <conflicted-file>  # Edit and resolve
+# git add .
+# git commit -m "Resolved merge conflicts"
 
 # Rebuild and restart all services
 docker compose up -d --build
@@ -74,6 +128,11 @@ docker compose logs -f
 For minimal service interruption:
 
 ```bash
+cd /root/resourceBooking
+
+# Pull latest code
+git pull origin main
+
 # Build new images without stopping services
 docker compose build
 
@@ -88,6 +147,9 @@ docker compose restart nginx-proxy-manager
 When only React code changed:
 
 ```bash
+cd /root/resourceBooking
+git pull origin main
+
 # Rebuild only frontend
 docker compose build frontend
 
@@ -100,6 +162,9 @@ docker compose up -d --no-deps frontend
 When only API code changed:
 
 ```bash
+cd /root/resourceBooking
+git pull origin main
+
 # Rebuild only backend
 docker compose build backend
 
@@ -112,6 +177,8 @@ docker compose up -d --no-deps backend
 If services are unresponsive:
 
 ```bash
+cd /root/resourceBooking
+
 # Force stop all containers
 docker compose down
 
@@ -127,6 +194,8 @@ docker compose up -d --build
 If new deployment causes issues:
 
 ```bash
+cd /root/resourceBooking
+
 # Revert to previous git commit
 git log --oneline -5  # Find previous commit
 git checkout <commit-hash>
@@ -141,7 +210,7 @@ docker compose up -d --build
 Before running deployment commands:
 
 - [ ] **Test locally** if possible
-- [ ] **Backup database**: `cp data/db/db.json data/db/db.json.backup`
+- [ ] **Backup database**: `cp /root/resourceBooking/data/db/db.json /root/resourceBooking/data/db/db.json.backup`
 - [ ] **Check disk space**: `df -h`
 - [ ] **Note current version**: `git log --oneline -1`
 - [ ] **Inform users** if expecting downtime
