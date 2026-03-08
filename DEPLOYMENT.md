@@ -10,6 +10,7 @@ This guide covers deploying the NBV Resource Booking System on a Hetzner VPS (or
 - [Deployment Steps](#deployment-steps)
 - [Nginx Proxy Manager Configuration](#nginx-proxy-manager-configuration)
 - [SSL Configuration](#ssl-configuration)
+- [IP-Only Deployment (No Domain)](#ip-only-deployment-no-domain)
 - [Maintenance](#maintenance)
 - [Troubleshooting](#troubleshooting)
 - [Backup and Recovery](#backup-and-recovery)
@@ -517,6 +518,132 @@ Default credentials:
 6. Click "Save"
 
 NPM will automatically obtain and configure Let's Encrypt certificates.
+
+## IP-Only Deployment (No Domain)
+
+If you don't have a domain name and want to use your server's IP address directly, follow these modified steps.
+
+### NPM Configuration with IP Address
+
+#### 1. Access NPM Admin Panel
+```
+http://YOUR_SERVER_IP:81
+```
+Example: `http://192.168.1.100:81` or `http://37.27.249.201:81`
+
+Default login: `admin@example.com` / `changeme`
+
+#### 2. Frontend Proxy Configuration
+1. Click "Proxy Hosts" → "Add Proxy Host"
+2. Configure:
+   - **Domain Names**: `YOUR_SERVER_IP` (e.g., `192.168.1.100`)
+   - **Scheme**: `http`
+   - **Forward Hostname/IP**: `frontend`
+   - **Forward Port**: `3000`
+   - **Cache Assets**: ✓
+   - **Block Common Exploits**: ✓
+
+#### 3. API Proxy Configuration
+1. Click "Add Proxy Host"
+2. Configure:
+   - **Domain Names**: `YOUR_SERVER_IP` (same IP as above)
+   - **Scheme**: `http`
+   - **Forward Hostname/IP**: `backend`
+   - **Forward Port**: `3005`
+3. In "Custom Locations" tab, add:
+   - **Location**: `/api`
+   - **Scheme**: `http`
+   - **Forward Hostname/IP**: `backend`
+   - **Forward Port**: `3005`
+   - **Advanced**: Add custom Nginx configuration:
+   ```nginx
+   rewrite ^/api/(.*)$ /$1 break;
+   ```
+
+### Important Notes for IP-Only Setup
+
+#### Access URLs
+- **Frontend**: `http://YOUR_SERVER_IP`
+- **NPM Admin**: `http://YOUR_SERVER_IP:81`
+- **API endpoints**: `http://YOUR_SERVER_IP/api/*`
+
+#### No SSL Available
+- Cannot use Let's Encrypt SSL without a domain
+- Application runs on HTTP only (port 80)
+- For production, consider purchasing a domain for SSL support
+
+#### Production Config Considerations
+The current setup uses relative paths (`/api`) which works with IP addresses through NPM proxy. No changes needed to the application code.
+
+### Alternative: Direct Port Access (Bypass NPM)
+
+If you prefer to access services directly via ports:
+
+#### 1. Modify docker-compose.yml
+Add port mappings to expose services directly:
+
+```yaml
+services:
+  frontend:
+    # ... existing config ...
+    ports:
+      - "3000:3000"
+
+  backend:
+    # ... existing config ...
+    ports:
+      - "3005:3005"
+
+  # Comment out or remove nginx-proxy-manager service
+```
+
+#### 2. Update Application Configuration
+Modify `src/config/prod.js`:
+```javascript
+module.exports = {
+    url: 'http://YOUR_SERVER_IP:3005'
+}
+```
+
+#### 3. Access URLs
+- **Frontend**: `http://YOUR_SERVER_IP:3000`
+- **Backend API**: `http://YOUR_SERVER_IP:3005`
+
+#### 4. Firewall Configuration
+```bash
+# Allow additional ports
+ufw allow 3000/tcp  # Frontend
+ufw allow 3005/tcp  # Backend API
+```
+
+### When to Use Each Approach
+
+**NPM with IP (Recommended)**:
+- ✅ Single entry point (port 80)
+- ✅ Path-based routing (/api)
+- ✅ Easier to add SSL later with domain
+- ✅ Professional setup
+
+**Direct Port Access**:
+- ✅ Simpler for development/testing
+- ✅ No proxy configuration needed
+- ❌ Multiple ports to manage
+- ❌ Less secure (more exposed ports)
+
+### Security Considerations for IP-Only
+
+1. **Firewall Protection**: Restrict access to your IP or network
+```bash
+# Allow only from your IP
+ufw allow from YOUR_HOME_IP to any port 80
+ufw allow from YOUR_HOME_IP to any port 81
+```
+
+2. **Change Default Passwords**: Update NPM admin credentials immediately
+
+3. **Consider VPN**: For remote access, use VPN instead of exposing to internet
+
+4. **Monitor Access**: Regularly check NPM access logs for unauthorized attempts
 
 ## Maintenance
 
